@@ -1,4 +1,4 @@
-package people;
+import java.util.List;
 
 public abstract class Person
 {
@@ -21,6 +21,11 @@ public abstract class Person
 	
 	public  void approach()
 	{
+		
+	}
+
+	public void approach(List<Customer> customers) {
+		// TODO Auto-generated method stub
 		
 	}
 }

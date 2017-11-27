@@ -2,34 +2,37 @@ import java.util.ArrayList;
 
 public class Main
 {
-	private int TURN_COUNTER = 0;
-	private ArrayList<Order> orders ;
+	private static int TURN_COUNTER = 0;
+	private static ArrayList<Order> orders ;
 	private ResultWriter results;
+	private static Max max;
 	
 	public Main()
 	{
 		results = new ResultWriter();
 		orders = new ArrayList<>();
+		max = new Max();
 	}
 	
 	public static void main(String[] args)
 	{
-		
+		kitchenLogic();
 	}
 	
-	public void kitchenLogic()
+	private static void kitchenLogic()
 	{
 		//While we still have orders
 		while(!orders.isEmpty())
 		{
 			//Do our kitchen stuff
 			incrementTurn();
+			max.approach();
 			
 		}
 		
 	}
 	
-	private void incrementTurn()
+	private static void incrementTurn()
 	{
 		TURN_COUNTER++;
 	}
