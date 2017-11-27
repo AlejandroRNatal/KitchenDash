@@ -6,7 +6,7 @@ public class Order
 	private double cost;
 	private boolean done;
 	
-	public Order(int time,  int cost)
+	public Order(int time,  double cost)
 	{
 		this.time_to_process = time;
 		this.cost = cost;
@@ -18,7 +18,7 @@ public class Order
 	 * 
 	 * @return time remaining for the order to finish
 	 */
-	public int time_remaining()
+	public int timeRemaining()
 	{
 		return this.time_to_process;
 	}
@@ -53,9 +53,9 @@ public class Order
 	 *  modifies the time remaining by -1
 	 *  for each call that is made
 	 */
-	private void decrement_time()
+	private void decrementTime()
 	{
-		if(time_remaining()> 0 )
+		if(timeRemaining()> 0 )
 			this.time_to_process--;
 		else{
 			System.out.println("Already passed time remaining!");

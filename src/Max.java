@@ -5,45 +5,60 @@ import java.util.Queue;
 
 public class Max extends Person
 {
-	private Queue<Person> q;
-	private int dispappointedCustomers;
+	//private Queue<Person> q;
+	private int disappointedCustomers;
+	private double profit;
 	
 	public Max()
 	{
 		super("Max");
+		this.profit = 0;
+		this.disappointedCustomers = 0;
 	}
 	
 	
-	public int approach(List<Customer> customers, int TURNS_TAKEN)
+	public void approach( List<Customer> customers, int TURNS_TAKEN)
 	{
-		//does the FIFO approach
-		// sort here
-		int disappointedCustomers = 0;
-		
-		sort(customers);
+		//does the MAX PROFIT APPROACH
 		//Iterate over customers
 		for(Customer c: customers)
 		{
 			//If customer's turn, add to queue
 			if(c.turn() == TURNS_TAKEN)
-				q.add(c);
+				//q.add(c);
 			
-				//add to queue
+			//if Customer's patience hits 0
 			if(c.patience() == 0)
 			{
 				//Remove him from list
-				disappointedCustomers++;
+				addDisappointments();
 			}
 			
 			else
 				c.decrementPatience();
 		}
 		
-		return disappointedCustomers;
-	}
-	
-	public void sort(List<Customer> cs)
-	{
 		
 	}
+	
+	public double profit()
+	{
+		return this.profit;
+	}
+	
+	private void addProfit(double p)
+	{
+		this.profit += p;
+	}
+	
+	public int disappointments()
+	{
+		return this.disappointedCustomers;
+	}
+	
+	private void addDisappointments()
+	{
+		this.disappointedCustomers++;
+	}
+
 }
