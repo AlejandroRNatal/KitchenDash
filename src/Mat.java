@@ -20,7 +20,7 @@ public class Mat extends Person
 	
 	//Dumbass, cant remove them from the list if we havent even
 	//processed their order
-	public void approach(Stack<Customer> stack,List<Customer> customers, int TURNS_TAKEN)
+	public void approach(Stack<Customer> stack,List<Customer> customers, Counter TURNS_TAKEN)
 	{
 		//Should run while list has customers
 //		for(Customer c: customers)
@@ -42,7 +42,7 @@ public class Mat extends Person
 
 			for(int i = 0 ; i < cop.size(); i++)
 			{
-				if(cop.get(i).turn() == TURNS_TAKEN)
+				if(cop.get(i).turn() == TURNS_TAKEN.count())
 				{
 					stack.add(customers.get(i));
 				}

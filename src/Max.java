@@ -1,11 +1,12 @@
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class Max extends Person
 {
-	//private Queue<Person> q;
+	private Queue<Person> q;
 	private int disappointedCustomers;
 	private double profit;
 	
@@ -14,17 +15,34 @@ public class Max extends Person
 		super("Max");
 		this.profit = 0;
 		this.disappointedCustomers = 0;
+		this.q = new LinkedList<Person>();
 	}
 	
 	
-	public void approach( List<Customer> customers, int TURNS_TAKEN)
+	public void approach(Customer cust, Counter TURNS_TAKEN)
+	{
+		if(cust.turn() == TURNS_TAKEN.count())
+		{
+			this.q.add(cust);
+			
+		}
+		if(cust.patience() == 0)
+		{
+			//Should be removed from listr4s
+		}
+		else{
+			//cust.decrementPatience();
+		}
+	}
+	/*
+	public void approach( List<Customer> customers, Counter TURNS_TAKEN)
 	{
 		//does the MAX PROFIT APPROACH
 		//Iterate over customers
 		for(Customer c: customers)
 		{
 			//If customer's turn, add to queue
-			if(c.turn() == TURNS_TAKEN)
+			if(c.turn() == TURNS_TAKEN.count())
 				//q.add(c);
 			
 			//if Customer's patience hits 0
@@ -40,6 +58,7 @@ public class Max extends Person
 		
 		
 	}
+	*/
 	
 	public double profit()
 	{

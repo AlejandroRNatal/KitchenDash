@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Writer;
@@ -11,6 +12,24 @@ public class ResultWriter
 	
 	private String content;
 	
+	public ResultWriter(String filename)
+	{
+		//WILL NOT CLOSE FILE OBJECT UNLESS WRITE IS CALLED
+		try {
+			this.file = new File(filename);
+			this.fop = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+
+
+	/*
+	 * @param the string we wish to format
+	 * @return csv-formatted string
+	 */
 	private static String csvFormat(String str)
 	{
 		String result = str;
@@ -63,20 +82,25 @@ public class ResultWriter
 			fop.flush();
 			fop.close();
 			
-			System.out.println("Done");
-		}catch(IOException e)
+			System.out.println("Done writing file:" + name);
+		}
+		catch(IOException e)
 		{
 			e.printStackTrace();
 			
-		}finally{
-			try{
-				if(fop != null)
-					fop.close();
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-			}
 		}
+			finally
+			{
+				try
+				{
+					if(fop != null)
+						fop.close();
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
 	}
 
 }

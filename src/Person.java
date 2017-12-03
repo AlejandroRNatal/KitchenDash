@@ -19,7 +19,7 @@ public abstract class Person
 		return this.name;
 	}
 	
-	public  void approach()
+	public  void approach(Customer c, Counter turns)
 	{
 		
 	}

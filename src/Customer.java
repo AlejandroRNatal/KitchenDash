@@ -12,12 +12,17 @@ public class Customer extends Person
 		this.patience = patience;
 		this.order = order;
 	}
-	
+	/*
+	 * @return the customers turn
+	 */
 	public int turn()
 	{
 		return this.turn;
 	}
 	
+	/*
+	 * @return the customers patience level
+	 */
 	public int patience()
 	{
 		return this.patience;
@@ -28,6 +33,9 @@ public class Customer extends Person
 		this.patience--;
 	}
 	
+	/*
+	 * @return the customers associated order
+	 */
 	public Order order()
 	{
 		return this.order;

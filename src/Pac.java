@@ -31,7 +31,7 @@ public class Pac extends Person
 	}
 	
 	//Maybe the approach should be abstracted to another class
-	public void approach(ArrayList<Customer> li, int i)
+	public void approach(ArrayList<Customer> li,Counter TURNS_TAKEN)
 	{
 		//sort(customers);
 		//customers.sort(arg0);

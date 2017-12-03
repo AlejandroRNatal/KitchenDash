@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
@@ -8,13 +9,14 @@ import java.util.Stack;
 public class Main
 {
 	//THIS ALL CAN BE MOVED TO THE KITCHEN CLASS
-	private int TURN_COUNTER = 0;
+	private Counter Turns;
 	private ArrayList<Customer> customers ;
 	private Stack<Customer> stack;
 	private Queue<Customer> q;
-	private Queue<Customer> pq;
+	private Queue<Person> pq;
 	private ResultWriter results;
 	private OrderParser op;
+	private Iterator<Customer> iter;
 	
 	private Max max;
 	private Mat mat;
@@ -24,58 +26,62 @@ public class Main
 	
 	public Main(String Filename)
 	{
-		results = new ResultWriter();
+		
 		
 		max = new Max();
 		mat = new Mat();
 		pat = new Pat();
 		pac = new Pac();
+		
 		file = new File(Filename);
+		results = new ResultWriter(Filename);
+		
 		op = new OrderParser(file);
 		customers = op.parse();
+		iter = customers.iterator();
+		Turns = new Counter();
 		
 	}
 	
 
-	
+	//MAYBE TRYING TO PROCESS THEM
+	//ALL AT THE SAME TIME IS A BAD IDEA
+	//WE NEED TO RETHINK HOW TO DO THIS
 	private void kitchenLogic()
 	{
 		//While we still have orders
-		while(!customers.isEmpty())
+		while(iter.hasNext())
 		{
+			Customer c= iter.next();
 			//Do our kitchen stuff
-			max.approach(customers,turns());
-			mat.approach(stack,customers,turns());
-			pat.approach(q,customers,turns());
-			pac.approach(customers,turns());
+			//WE NEED TO USE AN ITERATOR TO SAFELY REMOVE customers from the list
+
+			max.approach(c,Turns);
+			mat.approach(c,Turns);
+			pq = pat.approach(pq, c,Turns);
+			pac.approach(c,Turns);
 			
-			incrementTurn();
+			if(c.order().state())
+				iter.remove();
+			
+			Turns.addCount();
+
 		}
+		//Write Results here
+		this.results.write("");
 		
-	}
-	
-	private void incrementTurn()
-	{
-		TURN_COUNTER++;
-	}
-	
-	/**
-	 * 
-	 * @return the number of turns transpired
-	 */
-	public int turns()
-	{
-		return TURN_COUNTER;
 	}
 	
 	public static void main(String[] args)
 	{
+		//STILLS DOESN'T KNOW HOW TO TRAVERSE A DIR TO FIND THE FILE
 		System.out.println("Provide a file to process!");
 		
 		Scanner scan = new Scanner(System.in);
 		String filename = scan.nextLine();
 		while(filename.equals("") || filename.equals(" "))
 		{
+			System.out.println("Filename must not be null");
 			filename = scan.nextLine();
 		}
 		
