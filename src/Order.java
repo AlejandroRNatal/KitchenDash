@@ -44,7 +44,7 @@ public class Order
 	/**
 	 * toggles the order's state
 	 */
-	private void  processedOrder()
+	public void  processedOrder()
 	{
 		this.done = true;
 	}
@@ -53,7 +53,7 @@ public class Order
 	 *  modifies the time remaining by -1
 	 *  for each call that is made
 	 */
-	private void decrementTime()
+	public void decrementTime()
 	{
 		if(timeRemaining()> 0 )
 			this.time_to_process--;

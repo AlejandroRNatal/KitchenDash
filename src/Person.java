@@ -14,6 +14,10 @@ public abstract class Person
 		this("Max");
 	}
 	
+	public double getProfit()
+	{
+		return 0;
+	}
 	public String getName()
 	{
 		return this.name;
@@ -27,5 +31,10 @@ public abstract class Person
 	public void approach(List<Customer> customers) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int disappointments() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

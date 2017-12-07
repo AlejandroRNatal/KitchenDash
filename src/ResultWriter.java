@@ -1,12 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultWriter
 {
+	private Writer writer;
 	private FileOutputStream fop = null;
 	private File file;
 	
@@ -16,15 +19,37 @@ public class ResultWriter
 	{
 		//WILL NOT CLOSE FILE OBJECT UNLESS WRITE IS CALLED
 		try {
-			this.file = new File(filename);
-			this.fop = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
+			this.writer = new FileWriter(outputFilename(filename));
+			this.file = new File(outputFilename(filename));
+			this.fop = new FileOutputStream(outputFilename(filename));
+		} catch ( IOException e) {
 
 			e.printStackTrace();
 		}
 	}
 	
 
+	private String outputFilename(String f)
+	{
+		StringBuilder str_b = new StringBuilder();
+		
+		String[] preFormat = f.split(".");
+		
+		String out = "out";
+		
+		for(int i = 0; i < preFormat.length ; i ++)
+		{
+			str_b.append(preFormat[i]);
+			if(i == preFormat.length - 1)
+			{
+				str_b.append(out);
+				break;
+			}
+		}
+		
+		return str_b.toString();
+		
+	}
 
 	/*
 	 * @param the string we wish to format
@@ -62,6 +87,40 @@ public class ResultWriter
 		str_b.append("\n");
 		w.append(str_b.toString());
 		
+	}
+	
+	public void writeResults(ArrayList<Person> people)
+	{
+		List<String> results = new ArrayList<>();
+		if(people.equals(null)| people.isEmpty())
+			System.out.println("People Array List is null in write results method!");
+		
+		for(Person p: people)
+		{
+			System.out.println(p.getName() +"'s approach profit:" + p.getProfit());
+			System.out.println(p.getName()+"'s approach number of disappointed customers:"+ p.disappointments());
+			results.add(p.getName() +"'s approach profit:" + p.getProfit());
+			results.add(p.getName()+"'s approach number of disappointed customers:"+ p.disappointments());
+			
+		}
+		try {
+			writeLine(this.writer,results,' ', ' ');
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Wrote to file, do not forget to close after finishing with it!");
+	}
+	
+	public void close() throws IOException
+	{
+		if(fop != null)
+			this.fop.close();
+		if(writer != null)
+			this.writer.close();
+		
+		System.out.println("Successfully Closed ResultWriter");
 	}
 	
 	public void write(String name) throws IllegalArgumentException
