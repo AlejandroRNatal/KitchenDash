@@ -1,5 +1,5 @@
 # KitchenDash
-Simulation of Kitchen Policies using Data Structures
+Simulation of Kitchen Policies for maximizing profits using Data Structures
 
 # Overview
 For this project the student was to implement different policies regarding a lineup of customers at a restaurant.
